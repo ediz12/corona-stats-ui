@@ -1,1 +1,121 @@
-/* You can add global styles to this file, and also import other style files */
+/*  General CSS start*/
+body {
+  background-color: #0f0f0f;
+  color: #c3bcba;
+  font-family: monospace;
+
+}
+
+.general-container {
+  margin-top: 0.5%;
+  margin-left: 1%;
+  margin-right: 1%;
+}
+
+.border-boxes {
+  border-style: solid;
+  border-width: thin;
+  border-color: #575757;
+  border-radius: 5px;
+  background: rgba(35, 35, 35, 0.98);
+}
+
+.tab-boxes:hover {
+  background: rgba(72, 72, 72, 0.98);
+  cursor: pointer;
+}
+
+.active-tab {
+  background: rgba(72, 72, 72, 0.98);
+  font-size: 15px;
+  color: aliceblue;
+}
+
+.fade-tabs {
+  transition: all linear 500ms;
+  opacity: 1;
+}
+
+.fade-tabs.ng-hide {
+  opacity: 0;
+}
+
+/* General CSS end*/
+
+
+
+/* Header start */
+
+.count-boxes-container {
+  margin-top: 0.5%;
+}
+/* Header end */
+
+
+
+/* Content start*/
+
+.content-middle {
+  max-width: 100%;
+  max-height: 100%;
+}
+
+.world-count-text {
+  display: block;
+  font-size: 18px;
+}
+
+.world-text-description {
+  display: block;
+}
+
+.world-count-normal {
+  font-size: 24px;
+}
+
+.world-count-description {
+  font-size: 18px;
+}
+
+.total-world-count {
+  font-size: 15px;
+}
+
+.country-count-title {
+  display: block;
+  font-weight: bold;
+  font-size: 15px;
+}
+.country-count-text {
+  display: block;
+  font-size: 12px;
+}
+
+.country-count-normal {
+  display: block;
+  font-size: 18px;
+  text-align: right;
+}
+/* Content end*/
+
+
+
+/* Colors */
+.infected-count-color {
+  color: #b6a90a;
+}
+
+.dead-count-color {
+  color: #b60e00;
+}
+
+.recovered-count-color {
+  color: #2ab646
+}
+
+.other-count-color {
+  color: #c37b0d;
+}
+.important-text-color {
+  color: #2a78c3;
+}
