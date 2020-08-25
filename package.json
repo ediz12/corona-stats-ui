@@ -21,9 +21,11 @@
     "@angular/router": "~8.2.14",
     "bootstrap": "^4.4.1",
     "echarts": "^4.7.0",
+    "ng-multiselect-dropdown": "^0.2.10",
     "ngx-bootstrap": "^5.5.0",
     "ngx-echarts": "^4.2.2",
     "rxjs": "~6.4.0",
+    "rxjs-compat": "^6.5.4",
     "tslib": "^1.10.0",
     "zone.js": "~0.9.1"
   },

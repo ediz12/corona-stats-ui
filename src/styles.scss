@@ -96,9 +96,26 @@ body {
   font-size: 18px;
   text-align: right;
 }
+
+.select-box {
+  color: rgba(54, 54, 54, 0.98);
+  width: 60%;
+  height: 20px!important;
+  margin: 0 auto;
+}
+
 /* Content end*/
 
+/* Footer start */
 
+.footer {
+  position: fixed;
+  left: 0;
+  bottom: 0;
+  width: 100%;
+  font-size: 11px;
+}
+/* Footer ends */
 
 /* Colors */
 .infected-count-color {

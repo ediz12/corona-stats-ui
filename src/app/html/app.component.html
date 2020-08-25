@@ -1,7 +1,7 @@
 <div id="header" class="general-container">
 
   <div class="row-cols-1 border-boxes text-center">
-    <h4>Türkiye içindeki Coronavirus (COVID-19) İstatistikleri</h4>
+    <h4>{{selectedCountry}} içindeki Coronavirus (COVID-19) İstatistikleri</h4>
   </div>
 
   <div class="row count-boxes-container">
@@ -90,28 +90,29 @@
           <a class="nav-link" data-toggle="pill">Ülke</a>
         </li>
         <li (click)="changeTab('world')"
-            [ngClass]="isActiveTab('world')" class="nav-item col-3 border-boxes tab-boxes fade-tabs"><a class="nav-link"
-                                                                                                        data-toggle="pill">Dünya</a></li>
+            [ngClass]="isActiveTab('world')" class="nav-item col-3 border-boxes tab-boxes fade-tabs"><a class="nav-link" data-toggle="pill">Dünya</a>
+        </li>
         <li (click)="changeTab('comparisons')"
-            [ngClass]="isActiveTab('comparisons')" class="nav-item col-3 border-boxes tab-boxes fade-tabs"><a class="nav-link" data-toggle="pill">Karşılaştırma</a>
+            [ngClass]="isActiveTab('comparisons')" class="nav-item col-3 border-boxes tab-boxes fade-tabs"><a class="nav-link" data-toggle="pill">Karşılaştırmalar</a>
         </li>
         <li (click)="changeTab('map')"
             [ngClass]="isActiveTab('map')" class="nav-item col-3 border-boxes tab-boxes fade-tabs"><a class="nav-link"
-                                                                              data-toggle="pill">Harita</a></li>
+                                                                                                      data-toggle="pill">Harita</a>
+        </li>
       </ul>
 
       <div class="tab-content">
         <div *ngIf="isActiveTab('country')" id="country" role="tabpanel">
-          <div echarts [options]="countryChartOption" theme="dark" loading="true"></div>
+          <app-country-tab></app-country-tab>
         </div>
         <div *ngIf="isActiveTab('world')" id="world" role="tabpanel">
-          <div echarts [options]="worldChartOption" theme="dark" loading="true"></div>
+          <app-world-tab></app-world-tab>
         </div>
         <div *ngIf="isActiveTab('comparisons')" id="comparisons" role="tabpanel">
-          <div echarts [options]="countryChartOption" theme="dark" loading="true"></div>
+          <app-comparisons-tab></app-comparisons-tab>
         </div>
         <div *ngIf="isActiveTab('map')" id="map" role="tabpanel">
-          <div echarts [options]="worldMapOption" theme="dark" loading="true"></div>
+          <app-map-tab></app-map-tab>
         </div>
       </div>
 
@@ -166,15 +167,109 @@
 
     <div id="right-content" class="col-3 text-center">
       <div class="border-boxes">
-        <h3>AYARLAR
-          <br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br>
-        </h3>
+        <h3 class="font-weight-bolder">Ayarlar</h3>
       </div>
+
+      <div class="border-boxes mt-2">
+        <div *ngIf="isActiveTab('country')" id="country-settings">
+          <form>
+            <label for="country-select" class="world-count-text">Seçili ülke</label>
+            <select class="form-control mt-2 select-box" id="country-select" name="country-select"
+                    [(ngModel)]="selectedCountry" (ngModelChange)="chooseCountry(selectedCountry)">
+              <option *ngFor="let country of countries" [value]="country">{{country}}</option>
+            </select>
+          </form>
+          <form>
+            <label for="world-graph-select2" class="world-count-text">Seçili grafik türü</label>
+            <select class="form-control mt-2 select-box" id="world-graph-select2" name="world-graph-data-select"
+                    [(ngModel)]="selectedGraphType">
+              <option *ngFor="let data of graphTypes" [value]="data">{{data}}</option>
+            </select>
+          </form>
+          <form>
+            <label for="world-graph-select3" class="world-count-text">Minimum Vaka sayısı</label>
+            <select class="form-control mt-2 select-box" id="world-graph-select3" name="world-graph-data-select"
+                    [(ngModel)]="selectedMinimumCase">
+              <option *ngFor="let data of minimumCases" [value]="data">{{data}}</option>
+            </select>
+          </form>
+        </div>
+        <div *ngIf="isActiveTab('world')" id="world-settings">
+          <form>
+            <label for="country-select" class="world-count-text">Seçili bölge</label>
+            <select class="form-control mt-2 select-box" id="world-select" name="country-select"
+                    [(ngModel)]="selectedCountry" (ngModelChange)="chooseCountry(selectedCountry)">
+              <option *ngFor="let country of countries" [value]="country">{{country}}</option>
+            </select>
+          </form>
+          <form>
+            <label for="world-graph-select2" class="world-count-text">Seçili grafik türü</label>
+            <select class="form-control mt-2 select-box" id="world-graph-select4" name="world-graph-data-select"
+                    [(ngModel)]="selectedGraphType">
+              <option *ngFor="let data of graphTypes" [value]="data">{{data}}</option>
+            </select>
+          </form>
+          <form>
+            <label for="world-graph-select3" class="world-count-text">Minimum Vaka sayısı</label>
+            <select class="form-control mt-2 select-box" id="world-graph-select5" name="world-graph-data-select"
+                    [(ngModel)]="selectedMinimumCase">
+              <option *ngFor="let data of minimumCases" [value]="data">{{data}}</option>
+            </select>
+          </form>
+        </div>
+        <div *ngIf="isActiveTab('comparisons')" id="comparisons-settings">
+          <form>
+
+            <label class="world-count-text">Seçili Ülkeler</label>
+            <ng-multiselect-dropdown
+              [placeholder]="'custom placeholder'"
+              [data]="dropdownList"
+              [(ngModel)]="selectedItems"
+              [settings]="dropdownSettings"
+              name="world-country-select">
+            </ng-multiselect-dropdown>
+          </form>
+          <form>
+            <label for="world-graph-data-select" class="world-count-text">Seçili istatistik</label>
+            <select class="form-control mt-2 select-box" id="world-graph-data-select" name="world-graph-data-select"
+                    [(ngModel)]="selectedWorldOption">
+              <option *ngFor="let data of worldDataOptions" [value]="data">{{data}}</option>
+            </select>
+          </form>
+          <form>
+            <label for="world-graph-data-select" class="world-count-text">Seçili grafik türü</label>
+            <select class="form-control mt-2 select-box" id="world-graph-select" name="world-graph-data-select"
+                    [(ngModel)]="selectedGraphType">
+              <option *ngFor="let data of graphTypes" [value]="data">{{data}}</option>
+            </select>
+          </form>
+        </div>
+        <div *ngIf="isActiveTab('map')" id="map-settings">
+          <label for="world-graph-data-select" class="world-count-text">Seçili istatistik</label>
+          <select class="form-control mt-2 select-box" id="world-graph-data-select-2" name="world-graph-data-select"
+                  [(ngModel)]="selectedWorldOption">
+            <option *ngFor="let data of worldDataOptions" [value]="data">{{data}}</option>
+          </select>
+        </div>
+      </div>
+
     </div>
   </div>
 </div>
 
-<div id="footer">
-
+<div id="footer" class="footer border-boxes">
+  <div class="row">
+    <div class="col-7 pl-4">
+      Tüm hakları saklıdır. ©2020 Burada gösterilen veriler, sadece bilgilendirme amaçlıdır.
+      <br>
+      Veriler anlık güncellenmektedir.
+      <span class="text-right">Son güncelleme: 20/03/2020 - 23:12:42</span>
+    </div>
+    <div class="col-5 text-right pr-4">
+      COVID-2019 istatistik ekranı, <a href="http://edizzy.com" target="_blank">edizzy</a> tarafından yapılmıştır.
+      <br>
+      Sunucunun masraflarını karşılamama destek olmak için: <a href="#">link</a>
+    </div>
+  </div>
 </div>
 <router-outlet></router-outlet>
